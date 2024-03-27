@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "531798730839",
+    "firebase_url": "https://bwa-mov-fbe4b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "bwa-mov-fbe4b",
+    "storage_bucket": "bwa-mov-fbe4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531798730839:android:086d55a75bfb802e6ddb12",
+        "android_client_info": {
+          "package_name": "com.example.mymovielist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531798730839-vero38p63b8dpl9086am8usv7gkispsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgp8UmcPNInB298QubzmLAF2xSiUbS-Uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531798730839-vero38p63b8dpl9086am8usv7gkispsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531798730839:android:3c00d9fb31b18abe6ddb12",
+        "android_client_info": {
+          "package_name": "com.fnakhsan.mov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531798730839-vero38p63b8dpl9086am8usv7gkispsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgp8UmcPNInB298QubzmLAF2xSiUbS-Uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531798730839-vero38p63b8dpl9086am8usv7gkispsa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

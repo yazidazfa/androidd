@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">My Movie List</string>
+    <string name="tahun_terbit">Tahun Terbit</string>
+    <string name="judul_film">Judul Film</string>
+    <string name="genre_film">Genre Film</string>
+    <string name="rating_film">Rating Film</string>
+    <string name="cari">Cari</string>
+    <string name="detail_title">Detail Film</string>
+    <string name="director_text">Director</string>
+    <string name="director">Director</string>
+    <string name="desc_text">Description</string>
+    <string name="desc">Description</string>
+    <string name="main_menu">My Movie List</string>
+    <string name="fav_menu">Favorite Movie</string>
+    <string name="favorite">favorite</string>
+</resources>
