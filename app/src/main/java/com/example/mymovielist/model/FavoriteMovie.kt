@@ -13,19 +13,19 @@ data class FavoriteMovie(
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
-    @ColumnInfo(name = "desc")
+    @ColumnInfo(name = "judul")
     var judul: String? = null,
 
-    @ColumnInfo(name = "director")
+    @ColumnInfo(name = "poster")
     var poster: String? = null,
 
     @ColumnInfo(name = "genre")
     var genre: String? = null,
 
-    @ColumnInfo(name = "judul")
+    @ColumnInfo(name = "desc")
     var desc: String? = null,
 
-    @ColumnInfo(name = "poster")
+    @ColumnInfo(name = "director")
     var director: String? = null,
 
     @ColumnInfo(name = "rating")

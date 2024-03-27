@@ -3,7 +3,7 @@ package com.example.mymovielist.ui.detail
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mymovielist.ui.detail.FavActivity
+import com.example.mymovielist.ui.detail.DetailViewModel
 import com.example.mymovielist.ui.detail.FavViewModel
 
 

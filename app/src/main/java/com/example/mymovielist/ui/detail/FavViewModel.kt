@@ -1,20 +1,21 @@
 package com.example.mymovielist.ui.detail
 
 import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.example.mymovielist.model.FavoriteMovie
-
 import com.example.mymovielist.repository.MovieRepository
 
-class FavViewModel (application: Application): ViewModel() {
-    private val mMovieRepository: MovieRepository = MovieRepository(application)
+class FavViewModel (application: Application): AndroidViewModel(application) {
+    private val repository: MovieRepository = MovieRepository(application)
 
-    fun insert(member: FavoriteMovie) {
-        mMovieRepository.insert(member)
+    fun getAllMoviesFromFirebase() = repository.moviesLiveData
+    fun fetchMoviesFromFirebase() {
+        repository.getAllMoviesFromFirebase()
     }
 
-    fun delete(member: FavoriteMovie){
-        mMovieRepository.delete(member)
+    fun insertFavoriteMovie(favoriteMovie: FavoriteMovie) {
+        repository.insertFavoriteMovie(favoriteMovie)
     }
 }
 

@@ -18,6 +18,13 @@ import com.google.android.material.appbar.MaterialToolbar
 
 class FavActivity: AppCompatActivity() {
 
+    private lateinit var favViewModel: FavViewModel
+    private lateinit var binding: FavActivityBinding
+    companion object {
+        const val EXTRA_MOVIE = "extra_movie"
+        const val ALERT_DIALOG_CLOSE = 10
+        const val ALERT_DIALOG_DELETE = 20
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FavActivityBinding.inflate(layoutInflater)
@@ -38,19 +45,15 @@ class FavActivity: AppCompatActivity() {
         favViewModel = obtainViewModel(this@FavActivity)
 
         Toast.makeText(this, "FavActivity Created", Toast.LENGTH_SHORT).show()
-    }
-    companion object {
-        const val EXTRA_MOVIE = "extra_movie"
-        const val ALERT_DIALOG_CLOSE = 10
-        const val ALERT_DIALOG_DELETE = 20
+
+
     }
 
 
     private var isEdit = false
     private var member: FavoriteMovie? = null
 
-    private lateinit var favViewModel: FavViewModel
-    private lateinit var binding: FavActivityBinding
+
 
     private fun obtainViewModel(activity: AppCompatActivity): FavViewModel {
         val factory = FavViewModelFactory.getInstance(activity.application)
