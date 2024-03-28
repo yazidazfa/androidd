@@ -30,6 +30,20 @@ abstract class MovieRoomDatabase : RoomDatabase() {
             }
             return INSTANCE as MovieRoomDatabase
         }
+
+        fun reopenDatabase(context: Context): MovieRoomDatabase? {
+            val database = getDatabase(context)
+            if (!database.isOpen) {
+                synchronized(MovieRoomDatabase::class.java) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        MovieRoomDatabase::class.java,
+                        "movie_database"
+                    ).build()
+                }
+            }
+            return INSTANCE
+        }
     }
 }
 

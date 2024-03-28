@@ -12,5 +12,5 @@
     <string name="desc">Description</string>
     <string name="main_menu">My Movie List</string>
     <string name="fav_menu">Favorite Movie</string>
-    <string name="favorite">favorite</string>
+    <string name="favorites">favorites</string>
 </resources>

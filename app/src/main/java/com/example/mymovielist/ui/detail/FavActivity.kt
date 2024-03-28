@@ -16,15 +16,12 @@ import com.example.mymovielist.ui.main.MovieAdapter
 import com.google.android.material.appbar.MaterialToolbar
 
 
-class FavActivity: AppCompatActivity() {
+class FavActivity: AppCompatActivity(), FavoriteMovieAdapter.OnItemClickListener {
 
     private lateinit var favViewModel: FavViewModel
     private lateinit var binding: FavActivityBinding
-    companion object {
-        const val EXTRA_MOVIE = "extra_movie"
-        const val ALERT_DIALOG_CLOSE = 10
-        const val ALERT_DIALOG_DELETE = 20
-    }
+    private lateinit var favoriteMovieAdapter: FavoriteMovieAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FavActivityBinding.inflate(layoutInflater)
@@ -32,32 +29,37 @@ class FavActivity: AppCompatActivity() {
 
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar2)
         setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
 
-        toolbar.title = getString(R.string.fav_menu)
         toolbar.setNavigationIcon(R.drawable.ic_back)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
 
         binding.rvMovie.layoutManager = LinearLayoutManager(this)
-        binding.rvMovie.setHasFixedSize(true)
+        favoriteMovieAdapter = FavoriteMovieAdapter(this, null, this)
+        binding.rvMovie.adapter = favoriteMovieAdapter
 
         favViewModel = obtainViewModel(this@FavActivity)
 
         Toast.makeText(this, "FavActivity Created", Toast.LENGTH_SHORT).show()
 
-
+        observeFavoriteMovies()
     }
 
-
-    private var isEdit = false
-    private var member: FavoriteMovie? = null
-
-
+    private fun observeFavoriteMovies() {
+        favViewModel.getAllFavoriteMovies().observe(this, { favoriteMovies ->
+            favoriteMovieAdapter.favoriteMovies = favoriteMovies
+            favoriteMovieAdapter.notifyDataSetChanged()
+        })
+    }
 
     private fun obtainViewModel(activity: AppCompatActivity): FavViewModel {
         val factory = FavViewModelFactory.getInstance(activity.application)
         return ViewModelProvider(activity, factory).get(FavViewModel::class.java)
     }
 
+    override fun onItemClick(favoriteMovie: FavoriteMovie) {
+        // Handle item click
+    }
 }

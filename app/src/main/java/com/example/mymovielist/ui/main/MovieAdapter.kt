@@ -16,6 +16,7 @@ class MovieAdapter(context: Context, private var listMovie: ArrayList<Movie>?) :
 
     private val listener : FireBaseDataListener
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)

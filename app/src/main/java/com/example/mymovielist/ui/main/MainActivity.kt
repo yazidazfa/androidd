@@ -16,9 +16,10 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import android.content.Intent
-import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
 import com.example.mymovielist.ui.detail.DetailActivity
 import com.example.mymovielist.ui.detail.FavActivity
+import com.example.mymovielist.ui.detail.FavViewModel
 
 
 class MainActivity : AppCompatActivity(),
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var movieRef: DatabaseReference
     private lateinit var listMovie: ArrayList<Movie>
     private lateinit var mToolbar: MaterialToolbar
-
+    private lateinit var favViewModel: FavViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,8 @@ class MainActivity : AppCompatActivity(),
 
         db = FirebaseDatabase.getInstance()
         movieRef = db.reference.child(MOVIE_CHILD)
+
+        favViewModel = ViewModelProvider(this).get(FavViewModel::class.java)
 
         movieRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -69,7 +72,6 @@ class MainActivity : AppCompatActivity(),
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.main_menu, menu)
 
-
         mToolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.search -> {
@@ -92,21 +94,21 @@ class MainActivity : AppCompatActivity(),
                 else -> false
             }
         }
+
+        mToolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.favorite -> {
+                    // Start FavActivity when the favorite menu item is clicked
+                    val intent = Intent(this, FavActivity::class.java)
+                    startActivity(intent)
+                    true // Return true to indicate that the click event has been handled
+                }
+                else -> false // Return false to indicate that the click event has not been handled
+            }
+        }
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.search -> {
-                true
-            }
-            R.id.favorite -> {
-                startActivity(Intent(this, FavActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
     private fun searchMovie(keyword: String?) {
         if (keyword != null) {

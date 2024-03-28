@@ -1,8 +1,11 @@
 package com.example.mymovielist.repository
 
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.room.Room
 import com.example.mymovielist.model.Movie
 import com.example.mymovielist.model.MemberDao
 import com.example.mymovielist.model.FavoriteMovie
@@ -43,6 +46,19 @@ class MovieRepository (application: Application) {
         MovieRoomDatabase.databaseWriteExecutor.execute {
             memberDao.insert(favoriteMovie)
         }
+    }
+
+    fun removeFavoriteMovieByJudul(judul: String) {
+        Log.d(TAG, "Removing favorite movie with title: $judul")
+        MovieRoomDatabase.databaseWriteExecutor.execute {
+            memberDao.delete(judul)
+        }
+    }
+    fun getFavoriteMovieByJudul(judul: String) :LiveData<FavoriteMovie>{
+        return memberDao.getFavoriteMovieByjudul(judul)
+    }
+    fun getAllFavoriteMovies(): LiveData<List<FavoriteMovie>> {
+        return memberDao.getAllFavoriteMovies()
     }
 
     companion object {

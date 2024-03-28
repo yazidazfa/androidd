@@ -22,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: DetailActivityBinding
     private lateinit var movie: Movie
-    private var isIconChanged = true
+    private var isIconChanged = false
     private lateinit var favViewModel: FavViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +70,11 @@ class DetailActivity : AppCompatActivity() {
             Toast.makeText(this, "Movie object is null", Toast.LENGTH_SHORT).show()
             finish()
         }
+        if (isMovieFavorite(movie)) {
+            // Movie is already a favorite
+            isIconChanged = true
+            updateFabIcon()
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -77,6 +82,10 @@ class DetailActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+    }
+    private fun isMovieFavorite(movie: Movie): Boolean {
+        val favoriteMovie = favViewModel.getFavoriteMovieByJudul(movie.judul ?: "").value
+        return favoriteMovie != null
     }
 
     private fun insertFavoriteMovie() {
@@ -93,6 +102,12 @@ class DetailActivity : AppCompatActivity() {
         favViewModel.insertFavoriteMovie(favoriteMovie)
         Toast.makeText(this, "Movie added to favorites", Toast.LENGTH_SHORT).show()
     }
+    private fun removeFavoriteMovie() {
+        movie.judul?.let { judul ->
+            favViewModel.removeFavoriteMovieByJudul(judul)
+            Toast.makeText(this, "Movie removed from favorites", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun updateFabIcon() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         val iconResource = if (isIconChanged) R.drawable.ic_fav else R.drawable.ic_notfav
@@ -100,18 +115,19 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun toggleFavorite() {
-        if (isIconChanged) {
+        if (!isIconChanged) {
             insertFavoriteMovie()
+            isIconChanged = true
+            updateFabIcon()
+
         } else {
+            removeFavoriteMovie()
+            isIconChanged = false
+            updateFabIcon()
             // Handle remove from favorites
         }
-        isIconChanged = !isIconChanged
-        updateFabIcon()
     }
-    private fun obtainViewModel(activity: AppCompatActivity): FavViewModel {
-        val factory = FavViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory).get(FavViewModel::class.java)
-}
+
     companion object{
         val MOVIE_CHILD = "Film"
         val EXTRA_MOVIE = "extra_movie"

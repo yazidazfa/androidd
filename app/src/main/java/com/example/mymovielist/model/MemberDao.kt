@@ -13,12 +13,12 @@ interface MemberDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(memberModel: FavoriteMovie)
 
-    @Delete
-    fun delete(memberModel: FavoriteMovie)
+    @Query("DELETE FROM FavoriteMovie WHERE judul = :judul")
+    fun delete(judul: String)
 
     @Query("SELECT * FROM FavoriteMovie WHERE judul = :judul")
     fun getFavoriteMovieByjudul(judul: String): LiveData<FavoriteMovie>
 
     @Query("SELECT * FROM FavoriteMovie")
-    fun getAllMember(): LiveData<List<FavoriteMovie>>
+    fun getAllFavoriteMovies(): LiveData<List<FavoriteMovie>>
     }

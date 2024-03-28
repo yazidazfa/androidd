@@ -40,7 +40,7 @@
                 app:navigationIcon="@drawable/ic_back" />
 
             <TextView
-                android:id="@+id/detail_title"
+                android:id="@+id/fav_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fav_menu"

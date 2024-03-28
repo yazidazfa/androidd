@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class Movie(
     var id: Int = 0,
@@ -17,4 +16,5 @@ data class Movie(
     var poster: String? = null,
     var rating: Float? = null,
     var tahunRilis: Int? = null,
+
 ) : Parcelable
