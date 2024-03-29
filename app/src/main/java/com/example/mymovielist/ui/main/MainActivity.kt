@@ -91,19 +91,14 @@ class MainActivity : AppCompatActivity(),
                     true
                 }
 
-                else -> false
-            }
-        }
-
-        mToolbar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
                 R.id.favorite -> {
                     // Start FavActivity when the favorite menu item is clicked
                     val intent = Intent(this, FavActivity::class.java)
                     startActivity(intent)
-                    true // Return true to indicate that the click event has been handled
+                    true
                 }
-                else -> false // Return false to indicate that the click event has not been handled
+
+                else -> false
             }
         }
         return true

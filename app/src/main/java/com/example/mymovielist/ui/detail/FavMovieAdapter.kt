@@ -10,8 +10,11 @@ import com.example.mymovielist.databinding.ItemMovieBinding
 import com.example.mymovielist.model.FavoriteMovie
 import com.bumptech.glide.Glide
 
-class FavoriteMovieAdapter(private val context: Context, public var favoriteMovies: List<FavoriteMovie>?, private val listener: OnItemClickListener) :
-    RecyclerView.Adapter<FavoriteMovieAdapter.FavoriteMovieViewHolder>() {
+class FavoriteMovieAdapter(
+    private val context: Context,
+    private var favoriteMovies: List<FavoriteMovie> = emptyList(),
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<FavoriteMovieAdapter.FavoriteMovieViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClick(favoriteMovie: FavoriteMovie)
@@ -40,15 +43,19 @@ class FavoriteMovieAdapter(private val context: Context, public var favoriteMovi
         }
     }
 
+    fun updateFavoriteMovies(newFavoriteMovies: List<FavoriteMovie>) {
+        favoriteMovies = newFavoriteMovies
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         return FavoriteMovieViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: FavoriteMovieViewHolder, position: Int) {
-        favoriteMovies?.get(position)?.let { holder.bind(it) }
+        val favoriteMovie = favoriteMovies[position]
+        holder.bind(favoriteMovie)
     }
 
-    override fun getItemCount(): Int = favoriteMovies?.size ?: 0
-
+    override fun getItemCount(): Int = favoriteMovies.size
 }

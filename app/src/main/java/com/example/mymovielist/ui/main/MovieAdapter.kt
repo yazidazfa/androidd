@@ -9,13 +9,12 @@ import com.example.mymovielist.R
 import com.example.mymovielist.databinding.ItemMovieBinding
 import com.example.mymovielist.model.Movie
 import com.bumptech.glide.Glide
-import com.example.mymovielist.model.FavoriteMovie
+
 
 class MovieAdapter(context: Context, private var listMovie: ArrayList<Movie>?) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val listener : FireBaseDataListener
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             MovieViewHolder {

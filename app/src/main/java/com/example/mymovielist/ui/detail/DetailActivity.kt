@@ -24,6 +24,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var movie: Movie
     private var isIconChanged = false
     private lateinit var favViewModel: FavViewModel
+    private lateinit var judul: String
+    private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,21 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.detail_activity)
 
         favViewModel = ViewModelProvider(this).get(FavViewModel::class.java)
+
+        val judul = intent.getStringExtra(EXTRA_JUDUL) ?: ""
+        Log.d("DetailActivity", "Received judul: $judul")
+
+        favViewModel.getFavoriteMovieByJudul(judul).observe(this, { favoriteMovie ->
+            if (favoriteMovie != null) {
+                // FavoriteMovie found, update UI with its details
+                Log.d("DetailActivity", "Found favorite movie: $favoriteMovie")
+                updateUI(favoriteMovie)
+            } else {
+                // FavoriteMovie not found, show error message or handle gracefully
+                showToast("Favorite movie not found")
+                Log.e("DetailActivity", "Favorite movie not found")
+            }
+        })
 
         val toolbar: Toolbar = findViewById(toolbar2)
         setSupportActionBar(toolbar)
@@ -43,7 +60,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         movie = intent.getParcelableExtra(EXTRA_MOVIE) ?: throw IllegalArgumentException("Movie not found")
-
+        Log.d("DetailActivity", "Received movie: $movie")
         val imageView = findViewById<ImageView>(R.id.imageView2)
 
         if (movie != null) {
@@ -82,12 +99,39 @@ class DetailActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+
+
+    }
+    private fun updateUI(favoriteMovie: FavoriteMovie) {
+        // Populate UI with FavoriteMovie details
+        binding.textViewJudul.text = favoriteMovie.judul
+        binding.textViewDesc.text = favoriteMovie.desc
+        binding.textViewDirector.text = favoriteMovie.director
+        binding.textViewGenre.text = favoriteMovie.genre
+        binding.textViewRating.text = favoriteMovie.rating.toString()
+        binding.textViewTahun.text = favoriteMovie.tahunRilis.toString()
+
+        Glide.with(this)
+            .load(favoriteMovie.poster)
+            .placeholder(R.drawable.poster_film) // Placeholder image while loading
+            .error(R.drawable.poster_film) // Image to display in case of error
+            .into(binding.imageView2)
+        // Populate other UI elements similarly
+        // ...
     }
     private fun isMovieFavorite(movie: Movie): Boolean {
         val favoriteMovie = favViewModel.getFavoriteMovieByJudul(movie.judul ?: "").value
         return favoriteMovie != null
     }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
+    private fun observeMovieDetails(movie: FavoriteMovie) {
+        favViewModel.getFavoriteMovieByJudul(judul).observe(this, { movie ->
+            // Update UI with the details of the movie
+        })
+    }
     private fun insertFavoriteMovie() {
         val favoriteMovie = FavoriteMovie(
             movie.id,
@@ -131,6 +175,8 @@ class DetailActivity : AppCompatActivity() {
     companion object{
         val MOVIE_CHILD = "Film"
         val EXTRA_MOVIE = "extra_movie"
+        const val EXTRA_JUDUL = "extra_judul"
+        const val EXTRA_FAVORITE_MOVIE = "fav-movie"
     }
 }
 

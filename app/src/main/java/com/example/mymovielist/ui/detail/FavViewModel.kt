@@ -10,12 +10,8 @@ import com.example.mymovielist.repository.MovieRepository
 
 class FavViewModel (application: Application): AndroidViewModel(application) {
     private val repository: MovieRepository = MovieRepository(application)
-    val favoriteMovies: LiveData<List<FavoriteMovie>> = repository.getAllFavoriteMovies()
 
-    fun getAllMoviesFromFirebase() = repository.moviesLiveData
-    fun fetchMoviesFromFirebase() {
-        repository.getAllMoviesFromFirebase()
-    }
+    val favoriteMovies: LiveData<List<FavoriteMovie>> = repository.getAllFavoriteMovies()
 
     fun insertFavoriteMovie(favoriteMovie: FavoriteMovie) {
         repository.insertFavoriteMovie(favoriteMovie)
