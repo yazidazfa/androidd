@@ -26,7 +26,6 @@ class MovieAdapter(context: Context, private var listMovie: ArrayList<Movie>?) :
         val movie = listMovie?.get(position)
         holder.bind(movie)
 
-        // Set click listener for the item view
         holder.itemView.setOnClickListener {
             listener.onDataClick(movie)
         }
@@ -46,8 +45,8 @@ class MovieAdapter(context: Context, private var listMovie: ArrayList<Movie>?) :
 
             Glide.with(itemView)
                 .load(movie?.poster)
-                .placeholder(R.drawable.poster_film) // Optional placeholder image while loading
-                .error(R.drawable.poster_film) // Optional error image if the loading fails
+                .placeholder(R.drawable.poster_film)
+                .error(R.drawable.poster_film)
                 .into(binding.imageView)
         }
     }

@@ -2,20 +2,14 @@ package com.example.mymovielist.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.mymovielist.R
 import com.example.mymovielist.databinding.FavActivityBinding
 import com.example.mymovielist.model.FavoriteMovie
-import com.example.mymovielist.model.MemberDao
-import com.example.mymovielist.model.Movie
-import com.example.mymovielist.model.MovieRoomDatabase
-import com.example.mymovielist.ui.main.MovieAdapter
 import com.google.android.material.appbar.MaterialToolbar
+import com.example.mymovielist.helper.toMovie
 
 
 class FavActivity: AppCompatActivity(), FavoriteMovieAdapter.OnItemClickListener {
@@ -59,14 +53,14 @@ class FavActivity: AppCompatActivity(), FavoriteMovieAdapter.OnItemClickListener
     }
 
     override fun onItemClick(favoriteMovie: FavoriteMovie) {
+        val movie = favoriteMovie.toMovie()
         val intent = Intent(this, DetailActivity::class.java).apply {
-            putExtra(DetailActivity.EXTRA_FAVORITE_MOVIE, favoriteMovie)
+            putExtra(DetailActivity.EXTRA_MOVIE, movie)
         }
         startActivity(intent)
     }
     companion object {
-        const val EXTRA_JUDUL = "extra_judul"
-        val EXTRA_FAVVORITE_MOVIE = "fav-movie"
+
     }
 
 }

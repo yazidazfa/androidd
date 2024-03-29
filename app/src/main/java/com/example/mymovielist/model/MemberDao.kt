@@ -15,8 +15,11 @@ interface MemberDao {
     fun delete(judul: String)
 
     @Query("SELECT * FROM FavoriteMovie WHERE judul = :judul")
-    fun getFavoriteMovieByjudul(judul: String): LiveData<FavoriteMovie>
+    fun getFavoriteMovieByJudul(judul: String): LiveData<FavoriteMovie?>
 
     @Query("SELECT * FROM FavoriteMovie")
     fun getAllFavoriteMovies(): LiveData<List<FavoriteMovie>>
+
+    @Query("SELECT EXISTS (SELECT 1 FROM FavoriteMovie WHERE id = :movieId LIMIT 1)")
+    fun isMovieFavorited(movieId: Int): LiveData<Boolean>
     }

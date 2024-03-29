@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity(),
                 }
 
                 R.id.favorite -> {
-                    // Start FavActivity when the favorite menu item is clicked
                     val intent = Intent(this, FavActivity::class.java)
                     startActivity(intent)
                     true
@@ -125,16 +124,14 @@ class MainActivity : AppCompatActivity(),
 
 
     override fun onDataClick(movie: Movie?) {
-        // Start DetailActivity and pass the selected movie
         val intent = Intent(this, DetailActivity::class.java).apply {
             putExtra(DetailActivity.EXTRA_MOVIE, movie)
+            putExtra(DetailActivity.EXTRA_JUDUL, movie?.judul)
         }
         startActivity(intent)
     }
 
     companion object {
         const val MOVIE_CHILD = "Film"
-        const val EXTRA_MOVIE = "extra_movie"
-
     }
 }
