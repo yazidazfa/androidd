@@ -100,6 +100,18 @@
                     android:lineSpacingExtra="4dp"/>
 
                 <Space
+                    android:layout_width="9dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/textRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rating_text"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="4dp"/>
+
+                <Space
                     android:layout_width="8dp"
                     android:layout_height="wrap_content"/>
 
